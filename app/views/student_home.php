@@ -60,7 +60,8 @@
         <h1>LavaLust</h1>
         <h2>Student Portal</h2>
         <p>Welcome back. Access your student profile and manage your academic information seamlessly.</p>
-        <a href="<?= site_url('student/profile'); ?>" class="btn">Student Profile</a>
+        <a href="<?= site_url('profile'); ?>" class="btn">Student Profile</a>
+        <a href="<?= site_url('users'); ?>" class="btn">User List</a>
     </div>
 </body>
 </html>

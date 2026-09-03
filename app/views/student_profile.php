@@ -66,7 +66,7 @@
         <p>Year: <?php echo isset($year) ? $year : 'N/A'; ?></p>
         <p>Section: <?php echo isset($section) ? $section : 'N/A'; ?></p>
         <p>Email: <?php echo isset($email) ? $email : 'N/A'; ?></p>
-        <a href="<?= site_url('student'); ?>" class="btn">← Back to Home</a>
+        <a href="<?= site_url('/'); ?>" class="btn">← Back to Home</a>
     </div>
 </body>
 </html>
