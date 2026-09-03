@@ -7,6 +7,8 @@
     <title>User List</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -14,74 +16,134 @@
         }
 
         :root {
-            --bg: #f5f7fb;
-            --card: rgba(255, 255, 255, 0.88);
-            --text: #172033;
-            --muted: #7b8497;
-            --line: #e8ebf2;
-            --accent: #635bff;
-            --accent-light: #eeedff;
-            --accent-2: #8b5cf6;
+            --bg: #080d0c;
+            --bg-soft: #0d1413;
+            --card: #101817;
+            --card-light: #131d1c;
+
+            --primary: #49d9b1;
+            --primary-dark: #27b995;
+            --primary-soft: rgba(73, 217, 177, 0.10);
+
+            --white: #f3f8f6;
+            --text: #e7efec;
+            --text-soft: #a2b2ad;
+            --text-muted: #64736e;
+
+            --border: rgba(130, 169, 157, 0.14);
+
+            --green: #49d9b1;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            font-family: "DM Sans", "Segoe UI", Arial, sans-serif;
             min-height: 100vh;
-            padding: 50px 24px;
-            background:
-                radial-gradient(circle at 10% 10%, rgba(99, 91, 255, 0.10), transparent 28%),
-                radial-gradient(circle at 90% 85%, rgba(139, 92, 246, 0.09), transparent 30%),
-                var(--bg);
+            padding: 45px 25px;
+
             color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(73, 217, 177, 0.08),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 100%,
+                    rgba(39, 185, 149, 0.06),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #080d0c,
+                    #0a100f 50%,
+                    #070b0a
+                );
+
             overflow-x: hidden;
         }
 
-        /* Floating background shapes */
-        body::before,
-        body::after {
-            content: "";
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(2px);
-        }
+
+        /* =========================
+           BACKGROUND EFFECTS
+        ========================== */
 
         body::before {
-            width: 220px;
-            height: 220px;
-            top: -90px;
-            right: 8%;
-            background: rgba(99, 91, 255, 0.07);
+            content: "";
+
+            position: fixed;
+            top: -180px;
+            right: -100px;
+
+            width: 420px;
+            height: 420px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(73, 217, 177, 0.06);
+
+            box-shadow:
+                0 0 100px rgba(73, 217, 177, 0.025);
+
+            pointer-events: none;
+            z-index: -1;
         }
 
         body::after {
-            width: 280px;
-            height: 280px;
-            bottom: -130px;
-            left: 5%;
-            background: rgba(139, 92, 246, 0.06);
+            content: "";
+
+            position: fixed;
+            bottom: -220px;
+            left: -120px;
+
+            width: 480px;
+            height: 480px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(73, 217, 177, 0.05);
+
+            pointer-events: none;
+            z-index: -1;
         }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================== */
 
         .container {
             width: 100%;
-            max-width: 1120px;
+            max-width: 1160px;
+
             margin: auto;
-            background: var(--card);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 24px;
             padding: 34px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18, 28, 27, 0.97),
+                    rgba(10, 16, 15, 0.98)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 24px;
+
             box-shadow:
-                0 25px 70px rgba(31, 38, 70, 0.08),
-                0 4px 16px rgba(31, 38, 70, 0.04);
-            backdrop-filter: blur(18px);
-            animation: containerIn 0.6s ease forwards;
+                0 30px 80px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.01);
+
+            animation: containerAppear 0.7s ease forwards;
         }
 
-        @keyframes containerIn {
+        @keyframes containerAppear {
             from {
                 opacity: 0;
-                transform: translateY(18px);
+                transform: translateY(20px);
             }
 
             to {
@@ -90,378 +152,860 @@
             }
         }
 
-        /* Header */
-        .header {
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .top-section {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            justify-content: space-between;
+
+            gap: 25px;
             margin-bottom: 28px;
         }
 
-        .heading {
+        .title-area {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
-        .icon {
-            width: 52px;
-            height: 52px;
+
+        /* Main icon */
+
+        .main-icon {
+            position: relative;
+
+            width: 56px;
+            height: 56px;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             border-radius: 16px;
-            color: white;
-            font-size: 22px;
+
+            color: var(--primary);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(73, 217, 177, 0.15),
+                    rgba(73, 217, 177, 0.04)
+                );
+
+            border: 1px solid rgba(73, 217, 177, 0.20);
+
+            box-shadow:
+                0 0 30px rgba(73, 217, 177, 0.07);
+
+            font-size: 23px;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .main-icon:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 0 35px rgba(73, 217, 177, 0.16);
+        }
+
+        .main-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 7px;
+            height: 7px;
+
+            top: -3px;
+            right: -3px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            box-shadow:
+                0 0 0 4px rgba(73, 217, 177, 0.08),
+                0 0 12px rgba(73, 217, 177, 0.5);
+        }
+
+
+        /* Heading */
+
+        .title-content h2 {
+            font-size: 27px;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            box-shadow: 0 10px 25px rgba(99, 91, 255, 0.25);
+
+            letter-spacing: -0.8px;
+
+            color: var(--white);
         }
 
-        h2 {
-            font-size: 25px;
-            font-weight: 750;
-            letter-spacing: -0.7px;
-            color: var(--text);
-        }
+        .title-content p {
+            margin-top: 5px;
 
-        .subtitle {
-            margin-top: 4px;
-            color: var(--muted);
             font-size: 13px;
+            font-weight: 400;
+
+            color: var(--text-muted);
         }
 
-        .user-count {
+
+        /* =========================
+           USER COUNTER
+        ========================== */
+
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
             padding: 10px 15px;
-            border-radius: 12px;
-            background: var(--accent-light);
-            color: var(--accent);
-            font-size: 13px;
+
+            border: 1px solid rgba(73, 217, 177, 0.15);
+            border-radius: 10px;
+
+            background: rgba(73, 217, 177, 0.06);
+
+            color: var(--primary);
+
+            font-size: 12px;
             font-weight: 700;
+
             white-space: nowrap;
         }
 
-        /* Table wrapper */
-        .table-wrapper {
-            overflow-x: auto;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: #ffffff;
+        .counter-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            box-shadow:
+                0 0 8px rgba(73, 217, 177, 0.7);
         }
+
+
+        /* =========================
+           TABLE CARD
+        ========================== */
+
+        .table-card {
+            overflow: hidden;
+
+            background: rgba(8, 13, 12, 0.72);
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.015);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================== */
 
         table {
             width: 100%;
+            min-width: 760px;
+
             border-collapse: collapse;
-            min-width: 700px;
         }
+
+
+        /* Table header */
 
         th {
-            padding: 16px 20px;
+            padding: 16px 22px;
+
             text-align: left;
-            background: #fafaff;
-            color: #8a91a3;
-            font-size: 11px;
-            font-weight: 750;
+
+            background:
+                rgba(255, 255, 255, 0.018);
+
+            border-bottom: 1px solid var(--border);
+
+            color: #6f807a;
+
+            font-size: 10px;
+            font-weight: 700;
+
             text-transform: uppercase;
-            letter-spacing: 0.9px;
-            border-bottom: 1px solid var(--line);
+            letter-spacing: 1.2px;
         }
 
-        td {
-            padding: 17px 20px;
-            border-bottom: 1px solid var(--line);
-            font-size: 14px;
-            color: #394257;
-            transition: all 0.25s ease;
+        th:first-child {
+            padding-left: 24px;
         }
+
+
+        /* =========================
+           TABLE ROWS
+        ========================== */
 
         tbody tr {
+            position: relative;
+
             transition:
-                transform 0.25s ease,
-                background-color 0.25s ease,
-                box-shadow 0.25s ease;
+                background 0.25s ease,
+                transform 0.25s ease;
         }
 
-        tbody tr:last-child td {
-            border-bottom: none;
+        tbody tr:not(:last-child) {
+            border-bottom: 1px solid rgba(130, 169, 157, 0.09);
         }
 
         tbody tr:hover {
-            background: #fafaff;
-            transform: scale(1.005);
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(73, 217, 177, 0.055),
+                    rgba(73, 217, 177, 0.015),
+                    transparent
+                );
+
+            transform: translateX(3px);
+        }
+
+
+        /* Green hover indicator */
+
+        tbody tr::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 2px;
+
+            background: var(--primary);
+
+            box-shadow:
+                0 0 12px rgba(73, 217, 177, 0.55);
+
+            opacity: 0;
+
+            transition: opacity 0.25s ease;
+        }
+
+        tbody tr:hover::before {
+            opacity: 1;
+        }
+
+
+        /* Table cells */
+
+        td {
+            padding: 18px 22px;
+
+            color: var(--text-soft);
+
+            font-size: 13.5px;
+            font-weight: 500;
+
+            transition: color 0.2s ease;
+        }
+
+        td:first-child {
+            padding-left: 24px;
         }
 
         tbody tr:hover td {
             color: var(--text);
         }
 
-        /* ID badge */
+
+        /* =========================
+           ID
+        ========================== */
+
         .id-badge {
             display: inline-flex;
+
             align-items: center;
             justify-content: center;
+
             min-width: 38px;
-            height: 28px;
+            height: 27px;
+
             padding: 0 9px;
-            border-radius: 9px;
-            background: #f0efff;
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 750;
+
+            border-radius: 8px;
+
+            border: 1px solid rgba(73, 217, 177, 0.12);
+
+            background: rgba(73, 217, 177, 0.055);
+
+            color: var(--primary);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease;
         }
 
-        /* User name */
+        tbody tr:hover .id-badge {
+            background: rgba(73, 217, 177, 0.11);
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           AVATAR
+        ========================== */
+
         .name-cell {
             display: flex;
             align-items: center;
             gap: 12px;
+
+            color: var(--text);
+
             font-weight: 650;
-            color: #20283b;
         }
 
         .avatar {
-            width: 38px;
-            height: 38px;
-            flex-shrink: 0;
+            position: relative;
+
+            width: 39px;
+            height: 39px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            color: white;
+
+            flex-shrink: 0;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(73, 217, 177, 0.18),
+                    rgba(73, 217, 177, 0.05)
+                );
+
+            border: 1px solid rgba(73, 217, 177, 0.17);
+
+            color: var(--primary);
+
             font-size: 12px;
-            font-weight: 750;
-            background: linear-gradient(135deg, #7169ff, #9b6cff);
-            box-shadow: 0 5px 14px rgba(99, 91, 255, 0.18);
+            font-weight: 700;
+
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease,
+                box-shadow 0.3s ease;
         }
 
-        /* Email */
+        .avatar::after {
+            content: "";
+
+            position: absolute;
+
+            right: -3px;
+            bottom: -3px;
+
+            width: 7px;
+            height: 7px;
+
+            border: 2px solid #0c1211;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 7px rgba(73, 217, 177, 0.5);
+        }
+
+        tbody tr:hover .avatar {
+            transform: translateY(-3px) rotate(-2deg);
+
+            background:
+                rgba(73, 217, 177, 0.14);
+
+            box-shadow:
+                0 0 18px rgba(73, 217, 177, 0.10);
+        }
+
+
+        /* =========================
+           EMAIL
+        ========================== */
+
         .email {
-            color: #687187;
+            color: #81918c;
+
+            transition: color 0.25s ease;
         }
 
-        /* Username */
+        tbody tr:hover .email {
+            color: var(--primary);
+        }
+
+
+        /* =========================
+           USERNAME
+        ========================== */
+
         .username {
             display: inline-flex;
             align-items: center;
-            padding: 7px 10px;
-            border-radius: 9px;
-            background: #f6f7fa;
-            color: #505a70;
-            font-size: 12px;
+
+            padding: 7px 11px;
+
+            border-radius: 8px;
+
+            border: 1px solid rgba(130, 169, 157, 0.11);
+
+            background: rgba(255, 255, 255, 0.025);
+
+            color: #8d9b96;
+
+            font-size: 11.5px;
             font-weight: 600;
+
+            transition:
+                background 0.25s ease,
+                border-color 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease;
         }
 
-        /* Empty state */
+        tbody tr:hover .username {
+            background: rgba(73, 217, 177, 0.07);
+
+            border-color: rgba(73, 217, 177, 0.15);
+
+            color: var(--primary);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================== */
+
         .empty {
+            padding: 60px 20px !important;
+
             text-align: center;
-            color: var(--muted);
-            padding: 45px 20px !important;
+
+            color: var(--text-muted);
+
             font-size: 14px;
         }
 
         .empty::before {
             content: "○";
+
             display: block;
-            margin-bottom: 8px;
-            font-size: 26px;
-            color: #b5b9c6;
+
+            margin-bottom: 10px;
+
+            color: #43514d;
+
+            font-size: 30px;
         }
 
-        /* Footer */
+
+        /* =========================
+           FOOTER
+        ========================== */
+
         .footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 18px;
-            color: #9aa1b1;
-            font-size: 12px;
+
+            margin-top: 17px;
+            padding: 0 4px;
+
+            color: #52615c;
+
+            font-size: 11.5px;
+            font-weight: 500;
         }
 
-        .online {
+        .connection {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 8px;
         }
 
-        .dot {
+        .status-dot {
             width: 7px;
             height: 7px;
+
             border-radius: 50%;
-            background: #46c98b;
-            box-shadow: 0 0 0 4px rgba(70, 201, 139, 0.12);
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 0 4px rgba(73, 217, 177, 0.07),
+                0 0 10px rgba(73, 217, 177, 0.45);
         }
 
-        /* Responsive */
-        @media (max-width: 700px) {
+        .footer-right {
+            color: #46534f;
+        }
+
+
+        /* =========================
+           SCROLLBAR
+        ========================== */
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 7px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #0a100f;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #263b36;
+            border-radius: 20px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #34564d;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 760px) {
+
             body {
                 padding: 20px 12px;
             }
 
             .container {
                 padding: 20px;
+
                 border-radius: 20px;
             }
 
-            .header {
+            .top-section {
                 align-items: flex-start;
+
+                margin-bottom: 22px;
             }
 
-            .user-count {
-                display: none;
-            }
+            .main-icon {
+                width: 48px;
+                height: 48px;
 
-            .icon {
-                width: 46px;
-                height: 46px;
                 border-radius: 14px;
+
+                font-size: 20px;
             }
 
-            h2 {
+            .title-content h2 {
                 font-size: 21px;
             }
 
-            .subtitle {
-                font-size: 12px;
+            .title-content p {
+                font-size: 11.5px;
             }
 
-            .table-wrapper {
-                border-radius: 14px;
+            .counter {
+                display: none;
+            }
+
+            .table-card {
+                border-radius: 15px;
             }
 
             th,
             td {
-                padding: 14px 16px;
+                padding: 15px 16px;
+            }
+
+            td:first-child,
+            th:first-child {
+                padding-left: 18px;
             }
 
             .footer {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 8px;
+
+                gap: 9px;
             }
         }
+
+
+        /* =========================
+           SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 480px) {
+
+            .container {
+                padding: 16px;
+            }
+
+            .title-area {
+                gap: 11px;
+            }
+
+            .title-content h2 {
+                font-size: 19px;
+            }
+
+            .title-content p {
+                font-size: 10.5px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
+
 
     <div class="container">
 
-        <div class="header">
+        <!-- HEADER -->
 
-            <div class="heading">
-                <div class="icon">
+        <div class="top-section">
+
+            <div class="title-area">
+
+                <div class="main-icon">
                     👥
                 </div>
 
-                <div>
+                <div class="title-content">
+
                     <h2>Registered Users</h2>
-                    <p class="subtitle">
+
+                    <p>
                         Manage and view all registered accounts
                     </p>
+
                 </div>
+
             </div>
 
+
             <?php if (!empty($users)): ?>
-                <div class="user-count">
+
+                <div class="counter">
+
+                    <span class="counter-dot"></span>
+
                     <?= count($users); ?> Users
+
                 </div>
+
             <?php endif; ?>
 
         </div>
 
 
-        <div class="table-wrapper">
+        <!-- USER TABLE -->
 
-            <table>
+        <div class="table-card">
 
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                    </tr>
-                </thead>
+            <div class="table-wrapper">
 
-                <tbody>
+                <table>
 
-                    <?php if (!empty($users)): ?>
+                    <thead>
 
-                        <?php foreach ($users as $user): ?>
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>First Name</th>
+
+                            <th>Last Name</th>
+
+                            <th>Email</th>
+
+                            <th>Username</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <?php if (!empty($users)): ?>
+
+                            <?php foreach ($users as $user): ?>
+
+                                <tr>
+
+
+                                    <!-- ID -->
+
+                                    <td>
+
+                                        <span class="id-badge">
+
+                                            #<?= html_escape($user['id'] ?? ''); ?>
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- FIRST NAME -->
+
+                                    <td>
+
+                                        <div class="name-cell">
+
+                                            <div class="avatar">
+
+                                                <?= strtoupper(
+                                                    substr(
+                                                        $user['firstname'] ?? 'U',
+                                                        0,
+                                                        1
+                                                    )
+                                                ); ?>
+
+                                            </div>
+
+                                            <?= html_escape(
+                                                $user['firstname'] ?? ''
+                                            ); ?>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- LAST NAME -->
+
+                                    <td>
+
+                                        <?= html_escape(
+                                            $user['lastname'] ?? ''
+                                        ); ?>
+
+                                    </td>
+
+
+                                    <!-- EMAIL -->
+
+                                    <td>
+
+                                        <span class="email">
+
+                                            <?= html_escape(
+                                                $user['email'] ?? ''
+                                            ); ?>
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- USERNAME -->
+
+                                    <td>
+
+                                        <span class="username">
+
+                                            @<?= html_escape(
+                                                $user['username'] ?? ''
+                                            ); ?>
+
+                                        </span>
+
+                                    </td>
+
+
+                                </tr>
+
+                            <?php endforeach; ?>
+
+
+                        <?php else: ?>
+
 
                             <tr>
 
-                                <td>
-                                    <span class="id-badge">
-                                        #<?= html_escape($user['id'] ?? ''); ?>
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <div class="name-cell">
-
-                                        <div class="avatar">
-                                            <?= strtoupper(substr($user['firstname'] ?? 'U', 0, 1)); ?>
-                                        </div>
-
-                                        <?= html_escape($user['firstname'] ?? ''); ?>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <?= html_escape($user['lastname'] ?? ''); ?>
-                                </td>
-
-                                <td>
-                                    <span class="email">
-                                        <?= html_escape($user['email'] ?? ''); ?>
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <span class="username">
-                                        @<?= html_escape($user['username'] ?? ''); ?>
-                                    </span>
+                                <td
+                                    colspan="5"
+                                    class="empty"
+                                >
+                                    No users found in the database.
                                 </td>
 
                             </tr>
 
-                        <?php endforeach; ?>
 
-                    <?php else: ?>
+                        <?php endif; ?>
 
-                        <tr>
-                            <td colspan="5" class="empty">
-                                No users found in the database.
-                            </td>
-                        </tr>
 
-                    <?php endif; ?>
+                    </tbody>
 
-                </tbody>
+                </table>
 
-            </table>
+            </div>
 
         </div>
 
+
+        <!-- FOOTER -->
 
         <div class="footer">
 
-            <div class="online">
-                <span class="dot"></span>
+            <div class="connection">
+
+                <span class="status-dot"></span>
+
                 User database connected
+
             </div>
 
-            <div>
+
+            <div class="footer-right">
+
                 Registered Accounts
+
             </div>
 
         </div>
 
+
     </div>
+
 
 </body>
 
