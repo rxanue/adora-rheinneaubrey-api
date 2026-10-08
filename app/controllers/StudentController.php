@@ -5,22 +5,20 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $this->call->view('student_home');
+        $this->call->view('welcome_page');
     }
 
     public function profile()
-{
-    $student = [
-        'student_id' => '2024-00189',
-        'name'       => 'Trixie Shane Sulpico',
-        'course'     => 'BS Information Technology',
-        'year'       => '3rd Year',
-        'section'    => 'F3',
-        'email'      => 'trixiesulpico30@gmail.com'
-    ];
+    {
+        $student = [
+            'student_id' => '2024-00105',
+            'name'       => 'Rheinne Aubrey Adora',
+            'course'     => 'BS Information Technology',
+            'year'       => '3rd Year',
+            'section'    => 'F3',
+            'email'      => 'rheinne19aubrey@gmail.com'
+        ];
 
-    $this->call->view('student_profile', $student);
-}
-
-
+        $this->call->view('student_profile', $student);
+    }
 }
