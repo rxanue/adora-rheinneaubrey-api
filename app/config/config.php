@@ -50,7 +50,14 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 | You can simply get configs using config_item() function anywhere
 | My Configs:
 */
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 /*
 | -------------------------------------------------------------------
 | LavaLust Version
