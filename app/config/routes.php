@@ -1,5 +1,6 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+
 /**
  * ------------------------------------------------------------------
  * LavaLust - an opensource lightweight PHP MVC Framework
@@ -47,3 +48,28 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 $router->get('/', 'StudentController::index', ['middleware' => 'StudentMiddleware']);
 $router->get('/profile', 'StudentController::profile', ['middleware' => 'StudentMiddleware']);
 $router->get('/users', 'UserController::showUsers');
+
+/*
+|--------------------------------------------------------------------------
+| Migration Routes
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/migrate', 'MigrationController::migrate');
+$router->get('/create-migration/(:any)', 'MigrationController::create_migration');
+$router->get('/rollback', 'MigrationController::rollback');
+$router->get('/rollback-all', 'MigrationController::rollback_all');
+$router->get('/refresh', 'MigrationController::refresh');
+$router->get('/migration-status', 'MigrationController::status');
+
+/*
+|--------------------------------------------------------------------------
+| Product CRUD API Routes
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/api/products', 'ProductController::index');
+$router->get('/api/products/{id}', 'ProductController::show');
+$router->post('/api/products', 'ProductController::store');
+$router->put('/api/products/{id}', 'ProductController::update');
+$router->delete('/api/products/{id}', 'ProductController::delete');
