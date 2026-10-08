@@ -10,10 +10,15 @@ class ProductController extends Controller
         parent::__construct();
 
         $this->product = $this->call->model('ProductModel');
+        $this->call->library('api');
     }
 
     public function index()
     {
+        $api = lava_instance()->api;
+
+        $api->require_jwt();
+
         $products = $this->product->get_all_products();
 
         header('Content-Type: application/json');
@@ -26,6 +31,10 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        $api = lava_instance()->api;
+
+        $api->require_jwt();
+
         $product = $this->product->get_product($id);
 
         header('Content-Type: application/json');
@@ -49,6 +58,10 @@ class ProductController extends Controller
 
     public function store()
     {
+        $api = lava_instance()->api;
+
+        $api->require_jwt();
+
         $input = json_decode(file_get_contents('php://input'), true);
 
         if (!$input) {
@@ -100,6 +113,10 @@ class ProductController extends Controller
 
     public function update($id)
     {
+        $api = lava_instance()->api;
+
+        $api->require_jwt();
+
         $input = json_decode(file_get_contents('php://input'), true);
 
         if (!$input) {
@@ -160,6 +177,10 @@ class ProductController extends Controller
 
     public function delete($id)
     {
+        $api = lava_instance()->api;
+
+        $api->require_jwt();
+
         $existing = $this->product->get_product($id);
 
         header('Content-Type: application/json');

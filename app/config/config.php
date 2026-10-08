@@ -1,5 +1,6 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+
 /**
  * ------------------------------------------------------------------
  * LavaLust - an opensource lightweight PHP MVC Framework
@@ -50,14 +51,19 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 | You can simply get configs using config_item() function anywhere
 | My Configs:
 */
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+if (
+    isset($_SERVER['REQUEST_METHOD']) &&
+    $_SERVER['REQUEST_METHOD'] === 'OPTIONS'
+) {
     http_response_code(200);
     exit;
 }
+
 /*
 | -------------------------------------------------------------------
 | LavaLust Version
@@ -86,7 +92,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= '';
+$config['base_url']                 = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +103,7 @@ $config['base_url'] 				= '';
 |
 */
 $config['proxy_enabled']           = FALSE;
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -152,21 +159,9 @@ $config['composer_autoload']        = FALSE;
 |--------------------------------------------------------------------------
 |
 | This lets you specify which characters are permitted within your URLs.
-| When someone tries to submit a URL with disallowed characters they will
-| get a warning message.
-|
-| As a security measure you are STRONGLY encouraged to restrict URLs to
-| as few characters as possible.  By default only these are allowed: a-z 0-9~%.:_-
-|
-| Leave blank to allow all characters -- but only if you are insane.
-|
-| The configured value is actually a regular expression character group
-| and it will be executed as: ! preg_match('/^[<permitted_uri_chars>]+$/i
-|
-| DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars']		= 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars']      = 'a-z 0-9~%.:_\-';
 
 /*
 |--------------------------------------------------------------------------
@@ -176,7 +171,7 @@ $config['permitted_uri_chars']		= 'a-z 0-9~%.:_\-';
 | This config will be use html_escape function
 |
 */
-$config['charset']					= 'UTF-8';
+$config['charset']                  = 'UTF-8';
 
 /*
 |--------------------------------------------------------------------------
@@ -186,41 +181,28 @@ $config['charset']					= 'UTF-8';
 | app/views/errors/ directory.  Use a full server path with trailing slash.
 |
 */
-$config['error_view_path']         	= '';
+$config['error_view_path']          = '';
 
 /*
 |--------------------------------------------------------------------------
 | 404 Error Overide
 |--------------------------------------------------------------------------
 |
-| $config['404_override'] is use if you want to add custom 404 error page.
-|
-|	example: $confg['404_override'] = 'default/404'
-|
-|	if you have 'default folder' and '404.php file' inside error folder in view
-|
 */
-$config['404_override']       	    = '';
+$config['404_override']             = '';
 
 /*
 |--------------------------------------------------------------------------
 | Default Language
 |--------------------------------------------------------------------------
 |
-| This determines which set of language files should be used. Make sure
-| there is an available translation if you intend to use something other
-| than en-US.
-|
 */
-$config['language'] 				= 'en-US';
+$config['language']                 = 'en-US';
 
 /*
 |--------------------------------------------------------------------------
 | Sub-class Prefix
 |--------------------------------------------------------------------------
-|
-| This lets you specify which prefix should be used for your custom classes.
-| For example, if you have a class named MY_Controller, you would set this to 'MY_'.
 |
 */
 $config['subclass_prefix']          = 'MY_';
@@ -230,13 +212,6 @@ $config['subclass_prefix']          = 'MY_';
 | Session
 |--------------------------------------------------------------------------
 |
-| Settings for sessions
-| $config['sess_save_path'] will get the session save path form php.ini
-| if empty.
-| sess_driver default: file
-| sess_driver options: file, database
-|
-|--------------------------------------------------------------------------
 */
 $config['sess_driver']             = 'file';
 $config['sess_table']              = 'sessions';
@@ -263,9 +238,6 @@ $config['session_hmac_secret']     = getenv('APP_KEY') ?: '';
 | Cookies
 |--------------------------------------------------------------------------
 |
-|Settings for cookies.
-|
-|--------------------------------------------------------------------------
 */
 $config['cookie_prefix']           = '';
 $config['cookie_domain']           = '';
@@ -280,29 +252,17 @@ $config['cookie_samesite']         = 'Strict';
 | Cache
 |--------------------------------------------------------------------------
 |
-| Settings for Cache
-| Set your cache directory and cache expiration time here
-| Default:
-|   $config['cache_dir'] = 'runtime/cache/';
-|   $config['cache_default_expires'] = 0;
-|
-|--------------------------------------------------------------------------
 */
 $config['cache_driver']            = 'php';
 $config['cache_dir']               = ROOT_DIR . 'runtime/cache/';
 $config['cache_default_expires']   = 0;
 $config['lock_lock_timeout']       = 5;
 $config['lock_lock_sleep']         = 100000;
-$config['cache_default_expires']   = 0;
 
 /*
 |--------------------------------------------------------------------------
 | Encryption Key
 |--------------------------------------------------------------------------
-|
-| If you use the Encryption class, you must set an encryption key.
-| If you use csrf protection, you are highly encouraged to set an encryption key.
-|
 |
 */
 $config['encryption_key']           = getenv('APP_KEY') ?: '';
@@ -312,12 +272,6 @@ $config['encryption_key']           = getenv('APP_KEY') ?: '';
 | Soft Delete
 |--------------------------------------------------------------------------
 |
-| If you use the Model class, you can set the default soft delete column name here.
-|
-| Default:
-|   $config['soft_delete']  = FALSE;
-|   $config['soft_delete_column'] = 'deleted_at;
-|
 */
 $config['soft_delete']              = FALSE;
 $config['soft_delete_column']       = 'deleted_at';
@@ -326,10 +280,6 @@ $config['soft_delete_column']       = 'deleted_at';
 |--------------------------------------------------------------------------
 | Created At and Updated At Column
 |--------------------------------------------------------------------------
-| If you use the Model class, you can set the default created at and updated at column name here.
-| Default:
-|   $config['created_at_column'] = 'created_at';
-|   $config['updated_at_column'] = 'updated_at';
 |
 */
 $config['timestamps']               = FALSE;
@@ -340,14 +290,7 @@ $config['updated_at_column']        = 'updated_at';
 |--------------------------------------------------------------------------
 | Cross Site Request Forgery
 |--------------------------------------------------------------------------
-| Enables a CSRF cookie token to be set. When set to TRUE, token will be
-| checked on a submitted form. If you are accepting user data, it is strongly
-| recommended CSRF protection be enabled.
 |
-| 'csrf_exclude_uris' = Array of uris that will not go throught protection
-| 'csrf_token_name' = The token name
-| 'csrf_cookie_name' = The cookie name
-| 'csrf_expire' = The number in seconds the token should expire.
 */
 $config['csrf_protection']         = FALSE;
 $config['csrf_exclude_uris']       = array();
@@ -355,4 +298,5 @@ $config['csrf_token_name']         = 'csrf_test_name';
 $config['csrf_cookie_name']        = 'csrf_cookie_name';
 $config['csrf_expire']             = 7200;
 $config['csrf_regenerate']         = FALSE;
+
 ?>
